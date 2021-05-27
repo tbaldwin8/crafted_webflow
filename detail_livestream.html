@@ -1,4 +1,4 @@
-<!DOCTYPE html><!--  Last Published: Tue May 25 2021 14:05:54 GMT+0000 (Coordinated Universal Time)  -->
+<!DOCTYPE html><!--  Last Published: Thu May 27 2021 18:30:32 GMT+0000 (Coordinated Universal Time)  -->
 <html data-wf-page="6079f860afade0d2a805664a" data-wf-site="5f58fccfa158267296fc4d69">
 <head>
   <meta charset="utf-8">
@@ -287,6 +287,7 @@
           </div>
         </div>
         <div class="div-block-54">
+          <a href="#" id="buyButton" class="std-button livestream-buttons shop-button w-button">BUY NOw</a>
           <a id="tipButton" href="#" class="std-button livestream-buttons w-button">creator tip</a>
           <a id="subscribeButton" href="#" class="std-button livestream-buttons w-button">subscribe</a>
         </div>
@@ -656,6 +657,12 @@ body{
       tipDiv.style.display = 'block';
       closeLink.style.display = 'block';
     });
+    var buyLink = "";
+    if (buyLink.length > 1) {
+    	buyButton.style.display = 'block';
+    } else {
+    	buyButton.style.display = 'none';
+    }
     subscribeButton.addEventListener('click', function() {
       subscribeDiv.style.display = 'flex';
       subscribeDiv.style.justifyContent = 'center';
@@ -706,7 +713,7 @@ body{
        });
        msgInput.addEventListener('keyup', function(e) {
          	if (e.key === "Enter" || e.keyCode === 13) {
-          	submitUpdate(USER_NAME, updateText.value);
+            	submitUpdate(USER_NAME, updateText.value);
           }
     		});
     	// Enter Live Chat as the Creator
@@ -747,20 +754,25 @@ body{
 	      withPresence: true
 	    });
      submitUpdate = function(senderName, anUpdate) {
-        pubnub.publish({
-          channel : theChannel,
-          message : {'sender' : USER_ID, 'username': senderName, 'update' : anUpdate}
-        },
-        function(status, response) {
-          if (status.error) {
-            console.log('There was an error within chat');
-            console.log(status);
-          }
-          else {
-            console.log('[PUBLISH: sent] timetoken: ' + response.timetoken);
-            msgInput.value = "";
-          }
-        });
+        if (anUpdate.length > 0) {
+        	if (senderName === null) { senderName = 'guest'}
+          pubnub.publish({
+            channel : theChannel,
+            message : {'sender' : USER_ID, 'username': senderName, 'update' : anUpdate}
+          },
+          function(status, response) {
+            if (status.error) {
+              console.log('There was an error within chat');
+              console.log(status);
+            }
+            else {
+              console.log('[PUBLISH: sent] timetoken: ' + response.timetoken);
+              msgInput.value = "";
+            }
+          });
+        } else {
+        	console.log("msg empty");
+        }
      };
       displayMessage = function(sender, message, isCreator) {
 	    	//console.log('isCreator: ' + isCreator);
@@ -782,7 +794,6 @@ body{
           	var USERNAME = "";
             authChat.style.display ='flex';
             nonAuthChat.style.display = 'none';
-          	//const APP_ID = "E959112A-AAB5-4598-831B-1005F44938EB";
           	var fbUID = String(user.uid);
             var channeURL;
             var fbChatID = document.getElementById('firebaseChatID');

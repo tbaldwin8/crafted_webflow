@@ -559,6 +559,7 @@ var _exportNames = {
   MAX_TOTAL_ORDER_PRICE: true,
   MAX_PRODUCT_DIMENSION: true,
   MAX_MEMBERSHIP_PRODUCTS: true,
+  MAX_SEARCH_LIMIT: true,
   PRICE_TEMPLATE_CURRENCY_SYMBOL: true,
   PRICE_TEMPLATE_AMOUNT: true,
   PRICE_TEMPLATE_CURRENCY_CODE: true,
@@ -586,7 +587,7 @@ var _exportNames = {
   REQUIRED_DISCOUNT_IMPORT_FIELDS: true,
   STRIPE_DISCONNECT_SUBSCRIPTIONS_ERROR_MESSAGE: true
 };
-exports.STRIPE_DISCONNECT_SUBSCRIPTIONS_ERROR_MESSAGE = exports.REQUIRED_DISCOUNT_IMPORT_FIELDS = exports.DISCOUNTS_CSV_IMPORT_EXPORT_COLUMNS = exports.DEFAULT_PRODUCT_TYPE_ID = exports.PRODUCT_TYPE_HELP_TEXT = exports.TEMPLATE_PRODUCT_TYPES = exports.ADVANCED_PRODUCT_TYPE = exports.MEMBERSHIP_PRODUCT_TYPE = exports.SERVICE_PRODUCT_TYPE = exports.DIGITAL_PRODUCT_TYPE = exports.PHYSICAL_PRODUCT_TYPE = exports.BILLING_METHOD_TYPES = exports.ECOMMERCE_PROVIDER_NAME_ENUM = exports.STRIPE_SUBSCRIPTION_STATUS_ENUM = exports.SUBSCRIPTION_STATUS_ENUM = exports.SUBSCRIPTION_INTERVAL_ENUM = exports.DOWNLOAD_FILES_EDITABLE_FIELDS = exports.DOWNLOAD_FILES_KEY_PATH = exports.DOWNLOAD_FILES_FAKE_DATA = exports.CSV_INTEGRATION_CURRENCY_TEMPLATE = exports.CSV_CURRENCY_TEMPLATE = exports.DEFAULT_PRICE_TEMPLATE_VALUE = exports.PRICE_TEMPLATE_OPTIONS = exports.PRICE_TEMPLATE_CURRENCY_CODE = exports.PRICE_TEMPLATE_AMOUNT = exports.PRICE_TEMPLATE_CURRENCY_SYMBOL = exports.MAX_MEMBERSHIP_PRODUCTS = exports.MAX_PRODUCT_DIMENSION = exports.MAX_TOTAL_ORDER_PRICE = exports.INFINITE_INVENTORY = exports.INVENTORY_TYPE_INFINITE = exports.INVENTORY_TYPE_FINITE = exports.SHIPPING_METHODS = exports.ORDER_ID_RE = void 0;
+exports.STRIPE_DISCONNECT_SUBSCRIPTIONS_ERROR_MESSAGE = exports.REQUIRED_DISCOUNT_IMPORT_FIELDS = exports.DISCOUNTS_CSV_IMPORT_EXPORT_COLUMNS = exports.DEFAULT_PRODUCT_TYPE_ID = exports.PRODUCT_TYPE_HELP_TEXT = exports.TEMPLATE_PRODUCT_TYPES = exports.ADVANCED_PRODUCT_TYPE = exports.MEMBERSHIP_PRODUCT_TYPE = exports.SERVICE_PRODUCT_TYPE = exports.DIGITAL_PRODUCT_TYPE = exports.PHYSICAL_PRODUCT_TYPE = exports.BILLING_METHOD_TYPES = exports.ECOMMERCE_PROVIDER_NAME_ENUM = exports.STRIPE_SUBSCRIPTION_STATUS_ENUM = exports.SUBSCRIPTION_STATUS_ENUM = exports.SUBSCRIPTION_INTERVAL_ENUM = exports.DOWNLOAD_FILES_EDITABLE_FIELDS = exports.DOWNLOAD_FILES_KEY_PATH = exports.DOWNLOAD_FILES_FAKE_DATA = exports.CSV_INTEGRATION_CURRENCY_TEMPLATE = exports.CSV_CURRENCY_TEMPLATE = exports.DEFAULT_PRICE_TEMPLATE_VALUE = exports.PRICE_TEMPLATE_OPTIONS = exports.PRICE_TEMPLATE_CURRENCY_CODE = exports.PRICE_TEMPLATE_AMOUNT = exports.PRICE_TEMPLATE_CURRENCY_SYMBOL = exports.MAX_SEARCH_LIMIT = exports.MAX_MEMBERSHIP_PRODUCTS = exports.MAX_PRODUCT_DIMENSION = exports.MAX_TOTAL_ORDER_PRICE = exports.INFINITE_INVENTORY = exports.INVENTORY_TYPE_INFINITE = exports.INVENTORY_TYPE_FINITE = exports.SHIPPING_METHODS = exports.ORDER_ID_RE = void 0;
 
 var _extends2 = _interopRequireDefault(__webpack_require__(4));
 
@@ -639,6 +640,8 @@ var MAX_PRODUCT_DIMENSION = 9000000000000000;
 exports.MAX_PRODUCT_DIMENSION = MAX_PRODUCT_DIMENSION;
 var MAX_MEMBERSHIP_PRODUCTS = 20;
 exports.MAX_MEMBERSHIP_PRODUCTS = MAX_MEMBERSHIP_PRODUCTS;
+var MAX_SEARCH_LIMIT = 100;
+exports.MAX_SEARCH_LIMIT = MAX_SEARCH_LIMIT;
 
 function _withDerivedValue(_ref) {
   var label = _ref.label,
@@ -74129,8 +74132,8 @@ Webflow.define('slider', module.exports = function ($, _) {
 
     data.index = index; // Select nav dot; set class active
 
-    var $active = data.nav.children().eq(index).addClass('w-active').attr('aria-selected', 'true').attr('tabindex', '0');
-    data.nav.children().not($active).removeClass('w-active').attr('aria-selected', 'false').attr('tabindex', '-1'); // Hide arrows
+    var $active = data.nav.children().eq(index).addClass('w-active').attr('aria-pressed', 'true').attr('tabindex', '0');
+    data.nav.children().not($active).removeClass('w-active').attr('aria-pressed', 'false').attr('tabindex', '-1'); // Hide arrows
 
     if (config.hideArrows) {
       data.index === anchors.length - 1 ? data.right.hide() : data.right.show();
@@ -74375,7 +74378,7 @@ Webflow.define('slider', module.exports = function ($, _) {
 
     for (var i = 0, len = data.pages; i < len; i++) {
       $dot = $(dot);
-      $dot.attr('aria-label', 'Show slide ' + (i + 1) + ' of ' + len).attr('aria-selected', 'false').attr('role', 'button').attr('tabindex', '-1');
+      $dot.attr('aria-label', 'Show slide ' + (i + 1) + ' of ' + len).attr('aria-pressed', 'false').attr('role', 'button').attr('tabindex', '-1');
 
       if (data.nav.hasClass('w-num')) {
         $dot.text(i + 1);
